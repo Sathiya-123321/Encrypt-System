@@ -1,0 +1,7 @@
+# Uploaded files and local environment
+uploads/*
+!uploads/.gitkeep
+images/*
+!images/.gitkeep
+.env
+*.log
