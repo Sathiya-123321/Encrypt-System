@@ -1,14 +1,14 @@
 # Encrypt System — Secure File Sharing (PHP + MySQL)
 
-A web-based secure file sharing prototype built with **PHP**, **MySQL** and **AES-256-CBC** encryption. An admin uploads a file, the file content is encrypted before it is stored in the database, and a CEO/consumer panel can retrieve it by its generated file ID.
+A web-based secure file sharing prototype built with **PHP**, **MySQL** and **AES-256-CBC** encryption. An admin uploads a file, the file content is encrypted before it is stored in the database, and a CEO/consumer panel can select a file ID and download the decrypted original.
 
 ## Features
 
 - Admin upload panel with JPG validation and a 10 MB size limit
 - AES-256-CBC encryption using OpenSSL before storing file data in MySQL
-- Random IV generated for every uploaded file
+- Random IV generated for every uploaded file and stored with the record
 - Auto-incrementing hexadecimal file IDs (`0x500`, `0x501`, …)
-- CEO download panel populated from the database
+- CEO download panel populated from the database, with on-the-fly decryption
 - MySQL schema included (`file_list.sql`)
 - Simple, responsive HTML/CSS interface
 
@@ -22,11 +22,11 @@ A web-based secure file sharing prototype built with **PHP**, **MySQL** and **AE
 Encrypt-System/
 ├── index.html          # Landing page
 ├── admin.html          # Admin upload form
-├── ceo.html            # CEO download panel (contains PHP)
+├── ceo.php             # CEO download panel (queries MySQL)
 ├── css/style.css       # Styling
 ├── js/script.js        # Client-side helpers
 ├── php/upload.php      # Encrypt + store uploaded file
-├── php/download.php    # Download the latest stored file
+├── php/download.php    # Decrypt + download the selected file
 ├── file_list.sql       # MySQL schema
 ├── images/
 └── uploads/
@@ -43,7 +43,7 @@ Encrypt-System/
 | `previous_id` | VARCHAR(20) | Previous file ID (chain reference) |
 | `file_name` | VARCHAR(255) | Original file name |
 | `file` | LONGBLOB | Encrypted file content |
-| `iv` | CHAR(16) | Initialisation vector |
+| `iv` | VARCHAR(64) | Base64 encoded initialisation vector |
 | `created_at` | TIMESTAMP | Upload timestamp |
 
 ## Setup
@@ -68,7 +68,7 @@ C:\xampp\htdocs\Encrypt-System
 http://localhost/Encrypt-System/
 ```
 
-6. Use `admin.html` to upload a JPG and `ceo.html` to download it.
+6. Use `admin.html` to upload a JPG and `ceo.php` to select and download it.
 
 ## Security Notes
 

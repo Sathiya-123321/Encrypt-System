@@ -35,3 +35,43 @@ button {
 button:hover {
     background-color: #45a049;
 }
+
+.success {
+    max-width: 300px;
+    margin: 0 auto 16px;
+    padding: 10px;
+    border-radius: 6px;
+    background: #e8f5e9;
+    color: #1b5e20;
+    text-align: center;
+}
+
+.actions {
+    max-width: 300px;
+    margin: 24px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.button {
+    display: block;
+    padding: 12px;
+    border-radius: 6px;
+    background: #4CAF50;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+}
+
+.button:hover {
+    background: #45a049;
+}
+
+p {
+    text-align: center;
+}
+
+p a {
+    color: #2e7d32;
+}
